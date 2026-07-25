@@ -6,6 +6,7 @@
 ![Language](https://img.shields.io/badge/Language-C++-orange)
 ![Topic](https://img.shields.io/badge/Topic-GPIO-success)
 ![Difficulty](https://img.shields.io/badge/Difficulty-Beginner-brightgreen)
+![Video_Proff](https://www.linkedin.com/posts/navalkoshti05_esp32-embeddedsystems-iot-activity-7486814063457386498-izec?utm_source=share&utm_medium=member_desktop&rcm=ACoAADYG7A0Bxjfv2756ok3ZgeFpsaXpXWLOOqY)
 
 ---
 

@@ -29,6 +29,7 @@
 19. [Real-World Applications](#real-world-applications)
 20. [Next Step](#next-step)
 
+Proof Video => ![video_alt](https://github.com/naval0505/AIoT-Labs-and-Server-Codes/blob/bd69a466fb1a73b5c197f925e48d3b217b54fead/Button%20-%20Debouncing%20-%20Day%20-%2006/Proof/debounce.mp4)
 ---
 
 # Introduction

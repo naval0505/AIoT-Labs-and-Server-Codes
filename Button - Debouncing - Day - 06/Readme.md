@@ -30,6 +30,8 @@
 20. [Next Step](#next-step)
 
 Proof Video => ![video_alt](https://github.com/naval0505/AIoT-Labs-and-Server-Codes/blob/bd69a466fb1a73b5c197f925e48d3b217b54fead/Button%20-%20Debouncing%20-%20Day%20-%2006/Proof/debounce.mp4)
+Image => ![1](https://github.com/naval0505/AIoT-Labs-and-Server-Codes/blob/c524e07ed216112edaba815e23d46b033a2a7dbf/Button%20-%20Debouncing%20-%20Day%20-%2006/Proof/1.jpg)
+Image2 => ![](https://github.com/naval0505/AIoT-Labs-and-Server-Codes/blob/c524e07ed216112edaba815e23d46b033a2a7dbf/Button%20-%20Debouncing%20-%20Day%20-%2006/Proof/2.jpg)
 ---
 
 # Introduction

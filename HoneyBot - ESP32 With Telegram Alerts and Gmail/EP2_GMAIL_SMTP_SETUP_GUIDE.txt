@@ -1,0 +1,372 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║        EPISODE 2: GMAIL SMTP DIRECT SETUP (No IFTTT Required)             ║
+║                                                                           ║
+║              Email Alerts Sent Directly from ESP32                        ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+
+═══════════════════════════════════════════════════════════════════════════
+WHY GMAIL SMTP IS BETTER
+═══════════════════════════════════════════════════════════════════════════
+
+✅ ADVANTAGES:
+   • No IFTTT limitations or paid tier requirements
+   • Direct ESP32 → Gmail connection
+   • More control over email formatting
+   • Completely FREE
+   • No account limit issues
+   • Better for learning how email protocols work
+
+❌ IFTTT Issues (Why we're skipping it):
+   • Free tier = only 2 Applets max
+   • When you hit the limit, it demands payment
+   • Creates unnecessary dependency
+   • SMTP is simpler anyway
+
+⚡ GMAIL SMTP IS THE BETTER CHOICE FOR THIS PROJECT
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 1: CREATE GMAIL APP PASSWORD (5 minutes)
+═══════════════════════════════════════════════════════════════════════════
+
+⚠️ IMPORTANT: This requires Gmail 2-Factor Authentication enabled.
+   If you don't have 2FA, enable it first.
+
+STEP-BY-STEP:
+
+1. Go to: https://myaccount.google.com/
+2. Click "Security" (left sidebar)
+3. Look for "2-Step Verification"
+   → If NOT enabled: Click it and follow prompts to enable
+   → If already enabled: Continue to next step
+4. After 2FA is confirmed, you should see "App passwords" option
+   (If you don't see it, 2FA isn't enabled yet)
+5. Click "App passwords"
+6. Select Device: "Windows Computer" (or your device type)
+7. Select App: "Mail"
+8. Google generates a 16-character password like: "abcd efgh ijkl mnop"
+9. COPY THIS PASSWORD exactly (including spaces)
+
+Example App Password:
+┌─────────────────────────────────────┐
+│ flkd jslk mnop qrst uvwx yzab cdef  │  ← Copy this exactly
+└─────────────────────────────────────┘
+
+⚠️ IMPORTANT: Use this App Password in the code, NOT your regular Gmail password!
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 2: UPDATE THE ARDUINO CODE WITH YOUR CREDENTIALS
+═══════════════════════════════════════════════════════════════════════════
+
+Open: EP2_COMPLETE_CODE_GMAIL_SMTP.cpp
+
+Find these lines (around lines 18-22):
+
+BEFORE:
+─────────────────────────────────────────────────────────────
+const char* email_sender = "your_email@gmail.com";
+const char* email_password = "your_app_password";
+const char* email_recipient = "recipient@gmail.com";
+─────────────────────────────────────────────────────────────
+
+AFTER (Example):
+─────────────────────────────────────────────────────────────
+const char* email_sender = "nkoshti227@gmail.com";
+const char* email_password = "flkd jslk mnop qrst";       // App password WITH spaces
+const char* email_recipient = "nkoshti227@gmail.com";     // Same or different email
+─────────────────────────────────────────────────────────────
+
+🔑 KEY CREDENTIALS TO SET:
+
+Line 18: email_sender = "YOUR_GMAIL@gmail.com"
+         → Your Gmail address (the one you created the App Password for)
+         → Example: nkoshti227@gmail.com
+
+Line 19: email_password = "YOUR_APP_PASSWORD_WITH_SPACES"
+         → The 16-character password Google gave you
+         → INCLUDE the spaces exactly as shown
+         → Example: "flkd jslk mnop qrst"
+
+Line 20: email_recipient = "WHERE_TO_SEND@gmail.com"
+         → Email address that receives alerts
+         → Can be same as email_sender or different
+         → Example: nkoshti227@gmail.com
+
+Line 22: ssid = "Your_WiFi_Network_Name"
+         → Your home Wi-Fi name (case-sensitive)
+
+Line 23: password = "Your_WiFi_Password"
+         → Your home Wi-Fi password (case-sensitive)
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 3: SET UP TELEGRAM BOT (Same as before)
+═══════════════════════════════════════════════════════════════════════════
+
+This part hasn't changed. Follow the same steps:
+
+Line 26-27:
+const char* telegram_bot_token = "YOUR_TELEGRAM_BOT_TOKEN";
+const char* telegram_chat_id = "YOUR_TELEGRAM_CHAT_ID";
+
+If you haven't done this yet:
+1. Open Telegram
+2. Search: @BotFather
+3. Type: /newbot
+4. Follow prompts to create bot
+5. Copy the token (long string like "123456:ABC-DEF...")
+6. Paste into line 26
+
+To get Chat ID:
+1. Start the bot (send any message to @yourbot)
+2. Go to: https://api.telegram.org/botYOUR_TOKEN/getUpdates
+3. Find "chat":{"id": YOUR_CHAT_ID
+4. Paste that number into line 27
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 4: SET UP FIREBASE (Same as before)
+═══════════════════════════════════════════════════════════════════════════
+
+Line 30-31:
+const char* firebase_host = "your-project.firebaseio.com";
+const char* firebase_auth = "YOUR_FIREBASE_DATABASE_SECRET";
+
+If you haven't done this yet:
+1. Go to: https://console.firebase.google.com
+2. Create new project: "esp32-honeypot"
+3. Add Realtime Database
+4. Copy database URL: "esp32-honeypot.firebaseio.com"
+5. Paste into line 30
+6. Set line 31 to any string (for testing, use: "testing123")
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 5: UPLOAD CODE TO ESP32
+═══════════════════════════════════════════════════════════════════════════
+
+1. Open Arduino IDE
+2. Open: EP2_COMPLETE_CODE_GMAIL_SMTP.cpp
+3. Tools → Board → ESP32 Dev Module
+4. Tools → Port → Select your ESP32 port
+5. Click Upload (arrow button)
+6. Wait for "Sketch uses X bytes" message
+
+Expected Serial Monitor Output:
+─────────────────────────────────────────────────────────────
+================================
+   ESP32 HONEYPOT + ALERTS
+   Gmail | Telegram | Firebase
+================================
+LEDs initialized!
+Connecting to Wi-Fi: Naval
+Wi-Fi connected!
+ESP32 IP Address: 192.168.x.x
+Synchronizing time...
+...
+✅ System Ready!
+📧 Email alerts (Gmail SMTP): ENABLED
+📱 Telegram alerts: ENABLED
+☁️  Firebase logging: ENABLED
+─────────────────────────────────────────────────────────────
+
+If you see errors:
+• "Wi-Fi connection failed" → Check SSID/password
+• "[EMAIL] Failed to connect to SMTP server" → Check internet
+• Gibberish in Serial Monitor → Change Baud to 115200
+
+
+═══════════════════════════════════════════════════════════════════════════
+STEP 6: TEST THE SYSTEM
+═══════════════════════════════════════════════════════════════════════════
+
+SETUP:
+1. Keep Serial Monitor open on your computer
+2. Have Gmail inbox open in a browser (refresh when needed)
+3. Have Telegram app open on phone
+4. Have Firebase console open in another browser tab
+5. Terminal/command prompt ready on another computer
+
+TEST 1: Single Port Scan
+─────────────────────────────────────────────────────────────
+
+From another computer on same network:
+$ nmap -p 22 192.168.x.x
+(Replace with your ESP32 IP)
+
+Check each system:
+
+✓ SERIAL MONITOR - Should show:
+  !!! CONNECTION DETECTED !!!
+  Service: SSH
+  Port: 22
+  Attacker IP: 192.168.x.y
+  [EMAIL] Email sent successfully!
+  [TELEGRAM] Telegram alert sent successfully!
+  [FIREBASE] Data sent to Firebase successfully!
+
+✓ GMAIL INBOX - Should receive:
+  From: nkoshti227@gmail.com
+  Subject: [ESP32 ALERT] SSH Attack Detected on Port 22
+  Body: Shows attacker IP and timestamp
+
+✓ TELEGRAM - Phone should buzz with:
+  🚨 ATTACK DETECTED!
+  🎯 Service: SSH
+  📍 Port: 22
+  🔴 Attacker IP: 192.168.x.y
+  ⏰ Time: 2026-10-08 14:30:45
+
+✓ FIREBASE - Database should show new entry:
+  attacks
+  └─ 1
+    ├─ service: "SSH"
+    ├─ port: "22"
+    ├─ attacker_ip: "192.168.x.y"
+    └─ timestamp: "2026-10-08 14:30:45"
+
+
+TEST 2: Multiple Ports
+─────────────────────────────────────────────────────────────
+
+$ nmap -p 22,23,80,8080 192.168.x.x
+
+Watch:
+• LEDs: All 4 service LEDs should blink
+• Telegram: Multiple notifications arrive
+• Gmail: Multiple emails in inbox
+• Firebase: Multiple entries (1, 2, 3, 4, ...)
+• Serial Monitor: Each port triggers alerts (or skipped by cooldown)
+
+If one or more alerts don't work:
+[ ] Email not arriving?
+    → Check email_password is exactly right (with spaces)
+    → Check email_sender is valid Gmail
+    → Check 2FA is enabled
+    → Look for Serial Monitor error messages
+
+[ ] Telegram not notifying?
+    → Check bot token has no typos
+    → Check chat ID is numbers only
+    → Verify Telegram app notifications enabled
+
+[ ] Firebase not updating?
+    → Check firebase_host has no "https://"
+    → Verify rules allow ".write": true
+    → Check internet connection stable
+
+
+═══════════════════════════════════════════════════════════════════════════
+HOW GMAIL SMTP WORKS (Technical Explanation)
+═══════════════════════════════════════════════════════════════════════════
+
+For the curious, here's what the code does:
+
+PROCESS:
+1. ESP32 connects to smtp.gmail.com:587 (Gmail's SMTP server)
+2. Initiates TLS encryption (STARTTLS command)
+3. Authenticates with email + app password (base64 encoded)
+4. Constructs email headers (From, To, Subject)
+5. Sends email body
+6. Closes connection
+
+ADVANTAGES:
+• No middleman (IFTTT)
+• Direct control over message formatting
+• Real SMTP protocol (what enterprise systems use)
+• Perfect learning project for understanding email
+• Completely free and reliable
+
+SECURITY NOTE:
+In production code:
+• Never hardcode credentials (use secure storage)
+• Use proper certificate validation (we use setInsecure() for testing)
+• Never expose App Passwords in public code
+
+
+═══════════════════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════
+
+PROBLEM: "Failed to connect to SMTP server"
+FIX:
+1. Check internet connection (ping google.com from another computer)
+2. Verify Wi-Fi credentials are correct
+3. Try restarting ESP32 (press EN button)
+4. Check firewall not blocking port 587
+5. Try using port 465 instead (modify smtp_port = 465)
+
+PROBLEM: Email arrives but looks garbled
+FIX:
+1. Gmail sometimes has character encoding issues
+2. Try changing email content to plain ASCII (no emojis)
+3. Check "Content-Type: text/plain; charset=UTF-8" is in code ✓
+
+PROBLEM: "Authentication failed" error
+FIX:
+1. Verify 2-Factor Authentication is ENABLED
+2. Check app password (not regular Gmail password)
+3. Check password is copied exactly with spaces
+4. Try creating a new app password
+5. Verify email_sender matches Gmail account
+
+PROBLEM: Emails coming in hours later
+FIX:
+1. Gmail queues emails sometimes
+2. This is normal for first email
+3. Subsequent emails should arrive faster
+4. You can whitelist ESP32 in Gmail filters if needed
+
+PROBLEM: Too many emails arriving too fast
+FIX:
+1. This is normal - ESP32 sends one per attack
+2. The 5-second cooldown prevents spam when scanning multiple ports
+3. In Serial Monitor you'll see "[ALERTS] Cooldown active" for skipped ones
+4. Gmail will thread them together in conversation view
+
+
+═══════════════════════════════════════════════════════════════════════════
+SUMMARY: 3-ALERT SYSTEM COMPLETE
+═══════════════════════════════════════════════════════════════════════════
+
+You now have:
+
+1. 📧 EMAIL ALERTS (Gmail SMTP)
+   • Sent directly from ESP32 to your Gmail inbox
+   • Permanent record of all attacks
+   • Formatted with attack details
+
+2. 📱 TELEGRAM NOTIFICATIONS
+   • Real-time push notification on phone
+   • Works anywhere in the world
+   • Formatted with emoji for clarity
+
+3. ☁️ FIREBASE CLOUD LOGGING
+   • All attacks logged to Google cloud
+   • Real-time dashboard
+   • Queryable database for analysis
+
+All three fire simultaneously when attack detected!
+All three use different protocols to reach you via different channels.
+
+This is exactly how enterprise security systems work—just more sophisticated.
+
+═══════════════════════════════════════════════════════════════════════════
+NEXT: START FILMING!
+═══════════════════════════════════════════════════════════════════════════
+
+Now that setup is working:
+
+1. Test again with multi-port scan
+2. Verify all three alerts fire together
+3. Get camera angles ready (overhead shot of breadboard)
+4. Set up screen recording for Firebase/Gmail
+5. Record demo video
+
+Check EP2_VIDEO_SCRIPT_AND_GUIDE.txt for filming directions!
+
+═══════════════════════════════════════════════════════════════════════════

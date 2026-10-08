@@ -242,8 +242,7 @@ ESP32-Honeypot/
 This project is part of a **YouTube series on DIY Cybersecurity**:
 
 - **Episode 1:** Basic honeypot with LEDs
-- **Episode 2:** Multi-channel alerts (Gmail, Telegram, Firebase) ← **You are here**
-- **Episode 3:** Advanced analytics & patterns (coming soon)
+- **Episode 2:** Multi-channel alerts (Gmail, Telegram, Firebase) 
 
 ## 📄 License
 
